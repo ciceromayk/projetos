@@ -1,32 +1,9 @@
-import gspread
 import pandas as pd
-from oauth2client.service_account import ServiceAccountCredentials
 
-# escopos de acesso ao Google Sheets
-scope = [
-    "https://spreadsheets.google.com/feeds",
-    "https://www.googleapis.com/auth/drive"
-]
-
-# autenticação
-creds = ServiceAccountCredentials.from_json_keyfile_name(
-    "credentials.json",
-    scope
-)
-
-client = gspread.authorize(creds)
-
-# ABRE DIRETAMENTE SUA PLANILHA
-sheet = client.open_by_key("1muzEFsb3MsDkQFhhrehtwCwbrMgqi2A08StwqNjlmXs")
-
-# aba da planilha
-worksheet = sheet.worksheet("STATUS")
-
+SHEET_URL = "https://docs.google.com/spreadsheets/d/1muzEFsb3MsDkQFhhrehtwCwbrMgqi2A08StwqNjlmXs/export?format=csv"
 
 def load_status():
 
-    data = worksheet.get_all_records()
-
-    df = pd.DataFrame(data)
+    df = pd.read_csv(SHEET_URL)
 
     return df
