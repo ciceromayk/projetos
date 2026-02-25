@@ -14,12 +14,16 @@ creds = ServiceAccountCredentials.from_json_keyfile_name(
 
 client = gspread.authorize(creds)
 
-sheet = client.open("PROJECT_XRAY_DB")
+# ACESSO DIRETO PELA CHAVE DA PLANILHA
+sheet = client.open_by_key("1muzEFsb3MsDkQFhhrehtwCwbrMgqi2A08StwqNjlmXs")
+
+worksheet = sheet.worksheet("STATUS")
+
 
 def load_status():
 
-    worksheet = sheet.worksheet("STATUS")
-
     data = worksheet.get_all_records()
 
-    return pd.DataFrame(data)
+    df = pd.DataFrame(data)
+
+    return df
