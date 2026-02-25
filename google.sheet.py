@@ -1,14 +1,14 @@
 import gspread
 import pandas as pd
-from google_sheets import load_status
 from oauth2client.service_account import ServiceAccountCredentials
 
-
+# escopos de acesso ao Google Sheets
 scope = [
     "https://spreadsheets.google.com/feeds",
     "https://www.googleapis.com/auth/drive"
 ]
 
+# autenticação
 creds = ServiceAccountCredentials.from_json_keyfile_name(
     "credentials.json",
     scope
@@ -16,9 +16,10 @@ creds = ServiceAccountCredentials.from_json_keyfile_name(
 
 client = gspread.authorize(creds)
 
-# ACESSO DIRETO PELA CHAVE DA PLANILHA
+# ABRE DIRETAMENTE SUA PLANILHA
 sheet = client.open_by_key("1muzEFsb3MsDkQFhhrehtwCwbrMgqi2A08StwqNjlmXs")
 
+# aba da planilha
 worksheet = sheet.worksheet("STATUS")
 
 
