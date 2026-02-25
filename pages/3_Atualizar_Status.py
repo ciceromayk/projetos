@@ -1,50 +1,15 @@
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-
 import streamlit as st
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-import pandas as pd
-
-scope = [
-    "https://spreadsheets.google.com/feeds",
-    "https://www.googleapis.com/auth/drive"
-]
-
-creds = ServiceAccountCredentials.from_json_keyfile_name(
-    "credentials.json",
-    scope
-)
-
-client = gspread.authorize(creds)
-
-sheet = client.open_by_key("1muzEFsb3MsDkQFhhrehtwCwbrMgqi2A08StwqNjlmXs")
-
-worksheet = sheet.worksheet("STATUS")
-
-data = worksheet.get_all_records()
-
-df = pd.DataFrame(data)
 
 st.title("Atualizar Status")
 
-projetos = df["projeto"].unique()
-disciplinas = df["disciplina"].unique()
+st.info(
+"""
+A atualização deve ser feita diretamente na planilha Google.
 
-projeto = st.selectbox("Projeto", projetos)
+Abra a planilha abaixo para editar os dados.
+"""
+)
 
-disciplina = st.selectbox("Disciplina", disciplinas)
-
-status = st.selectbox("Status",[0,1,2,3,4])
-
-if st.button("Salvar"):
-
-    for i,row in df.iterrows():
-
-        if row["projeto"] == projeto and row["disciplina"] == disciplina:
-
-            worksheet.update_cell(i+2,3,status)
-
-    st.success("Status atualizado")
+st.markdown(
+"[Abrir planilha](https://docs.google.com/spreadsheets/d/1muzEFsb3MsDkQFhhrehtwCwbrMgqi2A08StwqNjlmXs/edit)"
+)
