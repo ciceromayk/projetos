@@ -1,11 +1,12 @@
-import streamlit as st
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-import pandas as pd
 import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+import streamlit as st
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import pandas as pd
 
 scope = [
     "https://spreadsheets.google.com/feeds",
@@ -19,7 +20,7 @@ creds = ServiceAccountCredentials.from_json_keyfile_name(
 
 client = gspread.authorize(creds)
 
-sheet = client.open("PROJECT_XRAY_DB")
+sheet = client.open_by_key("1muzEFsb3MsDkQFhhrehtwCwbrMgqi2A08StwqNjlmXs")
 
 worksheet = sheet.worksheet("STATUS")
 
@@ -27,7 +28,7 @@ data = worksheet.get_all_records()
 
 df = pd.DataFrame(data)
 
-st.title("✏️ Atualizar Status")
+st.title("Atualizar Status")
 
 projetos = df["projeto"].unique()
 disciplinas = df["disciplina"].unique()
@@ -36,10 +37,7 @@ projeto = st.selectbox("Projeto", projetos)
 
 disciplina = st.selectbox("Disciplina", disciplinas)
 
-status = st.selectbox(
-    "Status",
-    [0,1,2,3,4]
-)
+status = st.selectbox("Status",[0,1,2,3,4])
 
 if st.button("Salvar"):
 
