@@ -1,6 +1,6 @@
 import streamlit as st
 import plotly.express as px
-from google_sheets import load_status
+from pages.google_sheets import load_status
 
 st.title("Raio X dos Projetos")
 
