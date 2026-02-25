@@ -1,5 +1,5 @@
 import streamlit as st
-from google_sheets import load_status
+from pages.google_sheets import load_status
 
 st.title("Dashboard de Projetos")
 
