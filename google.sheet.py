@@ -1,6 +1,8 @@
 import gspread
 import pandas as pd
+from google_sheets import load_status
 from oauth2client.service_account import ServiceAccountCredentials
+
 
 scope = [
     "https://spreadsheets.google.com/feeds",
