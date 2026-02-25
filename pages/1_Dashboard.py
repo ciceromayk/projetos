@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 from services.google_sheets import load_status
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 st.title("📈 Dashboard de Projetos")
 
