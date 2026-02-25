@@ -1,23 +1,14 @@
 import streamlit as st
-import pandas as pd
-from services.google_sheets import load_status
-import sys
-import os
+from google_sheets import load_status
 
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-
-st.title("📈 Dashboard de Projetos")
+st.title("Dashboard de Projetos")
 
 df = load_status()
 
 progress = df.groupby("projeto")["status"].mean() / 4
-
-progress = progress.sort_values(ascending=False)
 
 for projeto, valor in progress.items():
 
     st.subheader(projeto)
 
     st.progress(float(valor))
-
-    st.write(f"{round(valor*100)} % concluído")
