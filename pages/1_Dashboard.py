@@ -1,7 +1,6 @@
 import sys
 import os
 
-# adiciona a raiz do projeto ao path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import streamlit as st
